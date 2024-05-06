@@ -201,12 +201,11 @@ int TableMeta::serialize(std::ostream &ss) const
   Json::Value fields_value;
   for (const FieldMeta &field : fields_) {
     Json::Value field_value;
-    LOG_WARN("field= %d" , field.type());
+    LOG_WARN("field=")
     field.to_json(field_value);
-    LOG_WARN("field_value= %s" , field_value.toStyledString().c_str());
     fields_value.append(std::move(field_value));
   }
-  LOG_WARN("fields_value = %s" , fields_value.toStyledString().c_str());
+
   table_value[FIELD_FIELDS] = std::move(fields_value);
 
   Json::Value indexes_value;

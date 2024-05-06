@@ -39,8 +39,8 @@ RC InsertStmt::create(Db *db, const InsertSqlNode &inserts, Stmt *&stmt)
   }
 
   // check the fields number
-  const Value *values         = inserts.values.data();
-  //std::vector<Value> values(inserts.values.begin(), inserts.values.end());
+  //const Value *values         = inserts.values.data();
+  std::vector<Value> values(inserts.values.begin(), inserts.values.end());
   const int        value_num  = static_cast<int>(inserts.values.size());
   const TableMeta &table_meta = table->table_meta();
   const int        field_num  = table_meta.field_num() - table_meta.sys_field_num();
@@ -71,7 +71,7 @@ RC InsertStmt::create(Db *db, const InsertSqlNode &inserts, Stmt *&stmt)
         }
         values[i].set_date(date);
       }
-      */
+      "
       LOG_WARN("field type mismatch. table=%s, field=%s, field type=%d, value_type=%d",table_name, field_meta->name(), field_type, value_type);
       return RC::SCHEMA_FIELD_TYPE_MISMATCH;
     }

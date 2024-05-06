@@ -39,8 +39,8 @@ RC InsertStmt::create(Db *db, const InsertSqlNode &inserts, Stmt *&stmt)
   }
 
   // check the fields number
-  const Value *values         = inserts.values.data();
-  //std::vector<Value> values(inserts.values.begin(), inserts.values.end());
+  //const Value *values         = inserts.values.data();
+  std::vector<Value> values(inserts.values.begin(), inserts.values.end());
   const int        value_num  = static_cast<int>(inserts.values.size());
   const TableMeta &table_meta = table->table_meta();
   const int        field_num  = table_meta.field_num() - table_meta.sys_field_num();
@@ -55,9 +55,8 @@ RC InsertStmt::create(Db *db, const InsertSqlNode &inserts, Stmt *&stmt)
     const FieldMeta *field_meta = table_meta.field(i + sys_field_num);
     const AttrType   field_type = field_meta->type();
     const AttrType   value_type = values[i].attr_type();
-    LOG_WARN("field type mismatch. table=%s, field=%s, field type=%d, value_type=%d",table_name, field_meta->name(), field_type, value_type);
     if (field_type != value_type) {  // TODO try to convert the value type to field type
-      /*
+      "
       if(field_type == DATES)
       {
         //字符串传进来，应该变成date类型
@@ -71,8 +70,8 @@ RC InsertStmt::create(Db *db, const InsertSqlNode &inserts, Stmt *&stmt)
         }
         values[i].set_date(date);
       }
-      */
-      LOG_WARN("field type mismatch. table=%s, field=%s, field type=%d, value_type=%d",table_name, field_meta->name(), field_type, value_type);
+      LOG_WARN("field type mismatch. table=%s, field=%s, field type=%d, value_type=%d",
+          table_name, field_meta->name(), field_type, value_type);
       return RC::SCHEMA_FIELD_TYPE_MISMATCH;
     }
   }

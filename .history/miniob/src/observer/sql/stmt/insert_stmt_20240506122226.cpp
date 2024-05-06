@@ -39,7 +39,7 @@ RC InsertStmt::create(Db *db, const InsertSqlNode &inserts, Stmt *&stmt)
   }
 
   // check the fields number
-  const Value *values         = inserts.values.data();
+  //const Value *values         = inserts.values.data();
   //std::vector<Value> values(inserts.values.begin(), inserts.values.end());
   const int        value_num  = static_cast<int>(inserts.values.size());
   const TableMeta &table_meta = table->table_meta();

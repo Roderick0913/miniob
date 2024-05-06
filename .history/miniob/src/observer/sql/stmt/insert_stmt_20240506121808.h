@@ -30,7 +30,7 @@ class InsertStmt : public Stmt
 {
 public:
   InsertStmt() = default;
-  InsertStmt(Table *table, const Value *values, int value_amount);
+  InsertStmt(Table *table, std::vector<Value> values, int value_amount);
 
   StmtType type() const override { return StmtType::INSERT; }
 
